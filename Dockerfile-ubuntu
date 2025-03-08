@@ -1,0 +1,18 @@
+ARG VER
+FROM ubuntu:${VER}
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        g++ cmake ninja-build ccache pkg-config
+
+# NOTE: installing in a for-loop due to package conflicts (24.04)
+ARG PKG
+RUN \
+    apt-get update && \
+    for p in ${PKG} ; do apt-get install -y --no-install-recommends \
+        ${p} ; done
+
+WORKDIR /scripts
