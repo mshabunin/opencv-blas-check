@@ -1,0 +1,11 @@
+ARG VER=42
+FROM fedora:${VER}
+
+RUN \
+    dnf install -y \
+        gcc-c++ cmake ninja-build ccache pkgconf
+
+ARG PKG
+RUN dnf install -y ${PKG}
+
+WORKDIR /scripts
